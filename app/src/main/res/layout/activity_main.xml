@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:paddingRight="16dp"
+                  android:paddingLeft="16dp"
+                  android:paddingTop="16dp"
+                  android:paddingBottom="16dp"
+                  tools:context=".MainActivity">
+
+
+        <include layout="@layout/layout_mnemonic_language"/>
+
+
+        <EditText
+                android:id="@+id/et_mnemonic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:hint="BIP39 Mnemonic"/>
+
+        <EditText
+                android:id="@+id/et_passphrase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="BIP39 Passphrase (optional)"/>
+
+        <EditText
+                android:id="@+id/et_seed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:enabled="false"
+                android:hint="BIP39 Seed"/>
+
+        <TextView
+                android:id="@+id/tv_seedToExtendedKey_prv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="BIP32 Root Key"/>
+
+        <TextView
+                android:id="@+id/tv_seedToExtendedKey_pub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="BIP32 Root Key only pub"/>
+
+        <EditText
+                android:id="@+id/et_purpose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:inputType="number"
+                android:hint="Purpose"/>
+
+        <EditText
+                android:id="@+id/et_coin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_marginBottom="8dp"
+                android:hint="Coin"/>
+        <EditText
+                android:id="@+id/et_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:inputType="number"
+                android:hint="Account"/>
+        <EditText
+                android:id="@+id/et_external_internal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:inputType="number"
+                android:hint="External / Internal"/>
+
+        <TextView
+                android:id="@+id/et_account_extended_prv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Account Extended Private Key"/>
+        <TextView
+                android:id="@+id/et_account_extended_pub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Account Extended Public Key"/>
+        <TextView
+                android:id="@+id/tv_derivation_path"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="BIP32 Derivation Path"/>
+        <TextView
+                android:id="@+id/tv_extended_private_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="BIP32 Extended Private Key"/>
+        <TextView
+                android:id="@+id/tv_extended_public_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="BIP32 Extended Public Key"/>
+    </LinearLayout>
+</ScrollView>
