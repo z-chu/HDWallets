@@ -18,6 +18,8 @@ import org.kethereum.bip39.toSeed
 import org.kethereum.bip39.validate
 import org.kethereum.bip39.wordlists.WORDLIST_ENGLISH
 import org.kethereum.crypto.signMessage
+import org.kethereum.crypto.toAddress
+import org.kethereum.crypto.toCredentials
 import org.kethereum.crypto.toECKeyPair
 import org.kethereum.functions.encodeRLP
 import org.kethereum.functions.toRLPList
@@ -71,7 +73,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val seed = seed
                 if (!text.isNullOrBlank() && seed != null) {
                     val toExtendedKey = seed.toExtendedKey()
-
+                    toExtendedKey.keyPair.toAddress()
                     tv_seedToExtendedKey_prv.text = toExtendedKey.serialize()
                     tv_seedToExtendedKey_pub.text = toExtendedKey.serialize(true)
                 }

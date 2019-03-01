@@ -1,5 +1,9 @@
 package io.imtouch.hdwallets
 
+import org.kethereum.bip32.model.ExtendedKey
+import org.kethereum.hashes.ripemd160
+import org.kethereum.hashes.sha256
+
 class HDPublicKey() {
 
     var index = 0
@@ -9,11 +13,11 @@ class HDPublicKey() {
     var publicKeyHash: ByteArray = byteArrayOf()
 
 
-    constructor(index: Int, external: Boolean, key: HDKey) : this() {
+    constructor(index: Int, external: Boolean, key: ExtendedKey) : this() {
         this.index = index
         this.external = external
-        this.publicKey = key.pubKey
-        this.publicKeyHash = key.pubKeyHash
+        this.publicKey = key.keyPair.publicKey.key.toByteArray()
+        this.publicKeyHash = publicKey.sha256().ripemd160()
     }
 
 }

@@ -1,12 +1,14 @@
 package io.imtouch.hdwallets
 
-class HDWallet(seed: ByteArray, private val coinType: Int, val gapLimit: Int = 20) {
+import org.kethereum.bip32.generateChildKey
+import org.kethereum.bip32.model.ExtendedKey
+import org.kethereum.bip32.model.Seed
+import org.kethereum.bip32.toExtendedKey
+import org.kethereum.bip44.BIP44
 
-    enum class Chain {
-        EXTERNAL, INTERNAL
-    }
+class HDWallet(seed: ByteArray, private val coinType: Int) {
 
-    private var hdKeychain: HDKeychain = HDKeychain(seed)
+    val rootKey = Seed(seed).toExtendedKey()
 
     // m / purpose' / coin_type' / account' / change / address_index
     //
@@ -23,11 +25,11 @@ class HDWallet(seed: ByteArray, private val coinType: Int, val gapLimit: Int = 2
     // network.name == MainNet().name ? 0 : 1
     // private var coinType: Int = 0
 
-    fun hdPublicKey(account: Int, index: Int, external: Boolean): HDPublicKey {
+    fun hdPublicKey(account: Int, external: Boolean, index: Int): HDPublicKey {
         return HDPublicKey(
             index = index,
             external = external,
-            key = privateKey(account = account, index = index, chain = if (external) 0 else 1)
+            key = generateKey(account = account, index = index, chain = if (external) 0 else 1)
         )
     }
 
@@ -35,7 +37,7 @@ class HDWallet(seed: ByteArray, private val coinType: Int, val gapLimit: Int = 2
         return HDPublicKey(
             index = index,
             external = true,
-            key = privateKey(account = account, index = index, chain = 0)
+            key = generateKey(account = account, index = index, chain = 0)
         )
     }
 
@@ -43,20 +45,24 @@ class HDWallet(seed: ByteArray, private val coinType: Int, val gapLimit: Int = 2
         return HDPublicKey(
             index = index,
             external = false,
-            key = privateKey(account = account, index = index, chain = 1)
+            key = generateKey(account = account, index = index, chain = 1)
         )
     }
 
-    fun privateKey(account: Int, index: Int, chain: Int): HDKey {
-        return privateKey(path = "m/$purpose'/$coinType'/$account'/$chain/$index")
+    fun generateKey(account: Int, external: Boolean, index: Int): ExtendedKey {
+        return generateKey(account, index, if (external) Chain.EXTERNAL.ordinal else Chain.INTERNAL.ordinal)
     }
 
-    fun privateKey(account: Int, index: Int, external: Boolean): HDKey {
-        return privateKey(account, index, if (external) Chain.EXTERNAL.ordinal else Chain.INTERNAL.ordinal)
+    fun generateKey(account: Int, chain: Int, index: Int): ExtendedKey {
+        return generateKey("m/$purpose'/$coinType'/$account'/$chain/$index")
     }
 
-    private fun privateKey(path: String): HDKey {
-        return hdKeychain.getKeyByPath(path)
+
+    fun generateKey(path: String): ExtendedKey {
+        return BIP44(path).path
+            .fold(rootKey) { current, bip44Element ->
+                current.generateChildKey(bip44Element)
+            }
     }
 
 }
