@@ -3,13 +3,14 @@ package io.imtouch.hdwallets
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.kethereum.bip32.model.Seed
 
 class HDWalletTest {
 
     private val seed =
         "6908630f564bd3ca9efb521e72da86727fc78285b15decedb44f40b02474502ed6844958b29465246a618b1b56b4bdffacd1de8b324159e0f7f594c611b0519d".hexStringToByteArray()
-    private val hdWalletMainNet = HDWallet(seed, 0)
-    private val hdWalletTestNet = HDWallet(seed, 1)
+    private val hdWalletMainNet = HDWallet(Seed(seed), 0)
+    private val hdWalletTestNet = HDWallet(Seed(seed), 1)
 
     @Test
     fun receiveAddress_correctAddress_mainNet() {
@@ -53,9 +54,9 @@ class HDWalletTest {
 
     @Test
     fun privateKey() {
-        val hdKey1 = hdWalletMainNet.privateKey(0, 0, 0)
-        val hdKey2 = hdWalletMainNet.privateKey(0, 0, true)
+        val hdKey1 = hdWalletMainNet.generateKey(0, 0, 0)
+        val hdKey2 = hdWalletMainNet.generateKey(0, 0, true)
 
-        assertArrayEquals(hdKey1.chainCode, hdKey2.chainCode)
+        assertEquals(hdKey1, hdKey2)
     }
 }

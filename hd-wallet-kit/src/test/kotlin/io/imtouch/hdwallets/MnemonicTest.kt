@@ -19,7 +19,7 @@ import java.security.SecureRandom
 
 class MnemonicTest {
 
-    private val mnemonic = Mnemonic()
+    private val mnemonic = Mnemonic
 
     @Test
     fun toMnemonic_Success() {
@@ -37,7 +37,7 @@ class MnemonicTest {
     }
 
     @Test
-    fun validate_Success() {
+    fun check_Success() {
 
         val mnemonicKeys = listOf(
             "jealous",
@@ -54,11 +54,11 @@ class MnemonicTest {
             "banner"
         )
 
-        mnemonic.validate(mnemonicKeys)
+        mnemonic.check(mnemonicKeys)
     }
 
     @Test(expected = Mnemonic.InvalidMnemonicCountException::class)
-    fun validate_WrongWordsCount() {
+    fun check_WrongWordsCount() {
 
         val mnemonicKeys = listOf(
             "digital",
@@ -74,11 +74,11 @@ class MnemonicTest {
             "banner"
         )
 
-        mnemonic.validate(mnemonicKeys)
+        mnemonic.check(mnemonicKeys)
     }
 
     @Test(expected = Mnemonic.InvalidMnemonicKeyException::class)
-    fun validate_InvalidMnemonicKey() {
+    fun check_InvalidMnemonicKey() {
 
         val mnemonicKeys = listOf(
             "jealous",
@@ -95,7 +95,7 @@ class MnemonicTest {
             "banner"
         )
 
-        mnemonic.validate(mnemonicKeys)
+        mnemonic.check(mnemonicKeys)
     }
 
     @Test
@@ -162,7 +162,7 @@ class MnemonicTest {
             "banner"
         )
 
-        mnemonic.validate(mnemonicKeys)
+        mnemonic.check(mnemonicKeys)
     }
 
     @Test
@@ -183,7 +183,7 @@ class MnemonicTest {
             }
         }.whenever(random).nextBytes(seed)
 
-        val mnemonicKeys = mnemonic.generate().toTypedArray()
+        val mnemonicKeys = mnemonic.toMnemonic(entropy).toTypedArray()
 
         val mnemonicKeysExpected = arrayOf(
             "jealous",
