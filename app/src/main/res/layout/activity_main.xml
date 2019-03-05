@@ -117,5 +117,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:hint="BIP32 Extended Public Key"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Derived Addresses:"/>
+        <TextView
+                android:id="@+id/tv_path"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Path"/>
+        <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Address"/>
+        <TextView
+                android:id="@+id/tv_public_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Public Key "/>
+        <TextView
+                android:id="@+id/tv_private_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Private Key"/>
     </LinearLayout>
 </ScrollView>

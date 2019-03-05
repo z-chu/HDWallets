@@ -2,7 +2,7 @@ apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 
     def kethereum_version = "0.72.3"
@@ -10,20 +10,16 @@ dependencies {
     implementation "com.github.walleth.kethereum:bip39:$kethereum_version"
     implementation "com.github.walleth.kethereum:bip39_wordlist_en:$kethereum_version"
     implementation "com.github.walleth.kethereum:bip44:$kethereum_version"
-    implementation "com.github.walleth.kethereum:erc55:$kethereum_version"
-    implementation "com.github.walleth.kethereum:eip155:$kethereum_version"
-    implementation "com.github.walleth.kethereum:eip191:$kethereum_version"
-    implementation "com.github.walleth.kethereum:erc681:$kethereum_version"
-    implementation "com.github.walleth.kethereum:erc831:$kethereum_version"
-    implementation "com.github.walleth.kethereum:erc1328:$kethereum_version"
-    implementation "com.github.walleth.kethereum:keccak_shortcut:$kethereum_version"
-    implementation "com.github.walleth.kethereum:method_signatures:$kethereum_version"
-    implementation "com.github.walleth.kethereum:networks:$kethereum_version"
-    implementation "com.github.walleth.kethereum:etherscan:$kethereum_version"
-    implementation "com.github.walleth.kethereum:rlp:$kethereum_version"
-    implementation "com.github.walleth.kethereum:wallet:$kethereum_version"
-    implementation "com.github.walleth.kethereum:contract_abi_types:$kethereum_version"
+    implementation "com.github.walleth.kethereum:crypto_api:$kethereum_version"
     implementation "com.github.walleth.kethereum:crypto_impl_spongycastle:$kethereum_version"
+
+    //bitcoin
+    implementation('org.bitcoinj:bitcoinj-core:0.14.7') {
+        exclude group: 'com.google.protobuf'
+    }
+    implementation 'com.google.guava:guava:27.0.1-android'
+
+
     // Test helpers
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.23.0'

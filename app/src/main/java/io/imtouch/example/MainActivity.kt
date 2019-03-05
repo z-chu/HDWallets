@@ -8,7 +8,11 @@ import com.github.zchu.bridge._addTextChangedListener
 import com.github.zchu.common.help.showToastShort
 import com.github.zchu.common.util.DebounceOnClickLister
 import com.github.zchu.common.util.bindOnClickLister
+import io.imtouch.hdwallets.address.EthereumAddressCreator
+import io.imtouch.hdwallets.address.SegWitBitcoinAddressCreator
+import io.imtouch.hdwallets.toBitCoinWIF
 import kotlinx.android.synthetic.main.activity_main.*
+import org.bitcoinj.params.MainNetParams
 import org.kethereum.bip32.model.Seed
 import org.kethereum.bip32.toExtendedKey
 import org.kethereum.bip32.toKey
@@ -17,15 +21,9 @@ import org.kethereum.bip39.model.MnemonicWords
 import org.kethereum.bip39.toSeed
 import org.kethereum.bip39.validate
 import org.kethereum.bip39.wordlists.WORDLIST_ENGLISH
-import org.kethereum.crypto.signMessage
+import org.kethereum.crypto.getCompressedPublicKey
 import org.kethereum.crypto.toAddress
-import org.kethereum.crypto.toCredentials
-import org.kethereum.crypto.toECKeyPair
-import org.kethereum.functions.encodeRLP
-import org.kethereum.functions.toRLPList
-import org.kethereum.model.ECKeyPair
-import org.kethereum.model.PrivateKey
-import org.kethereum.model.Transaction
+import org.kethereum.extensions.toHexStringNoPrefix
 import org.walleth.khex.toNoPrefixHexString
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -97,11 +95,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         et_account_extended_pub.setText(it.serialize(true))
                     }
                     val path = "m/${et_purpose.text}'/${et_coin.text}'/${et_account.text}'/${et_external_internal.text}"
-                    tv_derivation_path.text=path
+                    tv_derivation_path.text = path
                     it.toKey(path).let {
                         tv_extended_private_key.setText(it.serialize())
                         tv_extended_public_key.setText(it.serialize(true))
                     }
+                    deriveAddress(it)
                 }
 
             }
@@ -110,6 +109,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     }
+
+    private fun deriveAddress(seed: Seed) {
+        val path = "m/${et_purpose.text}'/${et_coin.text}'/${et_account.text}'/${et_external_internal.text}/0"
+        tv_path.text = path
+        val extendedKey =
+            seed.toKey(path)
+        tv_private_key.text = "private_key:" + extendedKey.keyPair.privateKey.key.toHexStringNoPrefix() + "\n WIF：" +
+                extendedKey.keyPair.privateKey.toBitCoinWIF(MainNetParams.get())
+        tv_public_key.text = "public_key:" + extendedKey.keyPair.getCompressedPublicKey().toNoPrefixHexString()
+        tv_address.text = "address:" + EthereumAddressCreator().fromECKeyPair(extendedKey.keyPair) + " \n base58:" +
+                SegWitBitcoinAddressCreator(MainNetParams.get()).fromECKeyPair(extendedKey.keyPair)
+    }
+
 
     override fun onClick(v: View) {
         when (v.id) {
