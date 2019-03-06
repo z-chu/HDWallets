@@ -8,15 +8,20 @@ import org.kethereum.bip39.model.MnemonicWords
 import org.kethereum.bip39.toSeed
 import org.kethereum.bip44.BIP44
 
-class HDWallet(seed: Seed, private val coinType: Int, val gapLimit: Int = 20) {
+class HDWallet(val rootKey: ExtendedKey, val coinType: Int, val gapLimit: Int = 20) {
 
-    constructor(mnemonicWords: MnemonicWords, coinType: Int, gapLimit: Int=20) : this(mnemonicWords.toSeed(), coinType, gapLimit)
+    constructor(mnemonicWords: MnemonicWords, coinType: Int, gapLimit: Int = 20) : this(
+        mnemonicWords.toSeed(),
+        coinType,
+        gapLimit
+    )
+
+    constructor(seed: Seed, coinType: Int, gapLimit: Int = 20) : this(seed.toExtendedKey(), coinType, gapLimit)
+
 
     enum class Chain {
         EXTERNAL, INTERNAL
     }
-
-    private val rootKey =seed.toExtendedKey()
 
     // m / purpose' / coin_type' / account' / change / address_index
     //
@@ -35,25 +40,25 @@ class HDWallet(seed: Seed, private val coinType: Int, val gapLimit: Int = 20) {
 
     fun hdPublicKey(account: Int, index: Int, external: Boolean): HDPublicKey {
         return HDPublicKey(
-                index = index,
-                external = external,
-                key = generateKey(account = account, index = index, chain = if (external) 0 else 1)
+            index = index,
+            external = external,
+            key = generateKey(account = account, index = index, chain = if (external) 0 else 1)
         )
     }
 
     fun receiveHDPublicKey(account: Int, index: Int): HDPublicKey {
         return HDPublicKey(
-                index = index,
-                external = true,
-                key = generateKey(account = account, index = index, chain = 0)
+            index = index,
+            external = true,
+            key = generateKey(account = account, index = index, chain = 0)
         )
     }
 
     fun changeHDPublicKey(account: Int, index: Int): HDPublicKey {
         return HDPublicKey(
-                index = index,
-                external = false,
-                key = generateKey(account = account, index = index, chain = 1)
+            index = index,
+            external = false,
+            key = generateKey(account = account, index = index, chain = 1)
         )
     }
 
@@ -68,9 +73,9 @@ class HDWallet(seed: Seed, private val coinType: Int, val gapLimit: Int = 20) {
 
     private fun generateKey(path: String): ExtendedKey {
         return BIP44(path).path
-                .fold(rootKey) { current, bip44Element ->
-                    current.generateChildKey(bip44Element)
-                }
+            .fold(rootKey) { current, bip44Element ->
+                current.generateChildKey(bip44Element)
+            }
     }
 
 }

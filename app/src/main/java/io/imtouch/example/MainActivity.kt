@@ -8,9 +8,10 @@ import com.github.zchu.bridge._addTextChangedListener
 import com.github.zchu.common.help.showToastShort
 import com.github.zchu.common.util.DebounceOnClickLister
 import com.github.zchu.common.util.bindOnClickLister
+import io.imtouch.hdwallets.Wordlist
 import io.imtouch.hdwallets.address.EthereumAddressCreator
 import io.imtouch.hdwallets.address.SegWitBitcoinAddressCreator
-import io.imtouch.hdwallets.toBitCoinWIF
+import io.imtouch.hdwallets.toBitCoinWiF
 import kotlinx.android.synthetic.main.activity_main.*
 import org.bitcoinj.params.MainNetParams
 import org.kethereum.bip32.model.Seed
@@ -20,7 +21,6 @@ import org.kethereum.bip39.generateMnemonic
 import org.kethereum.bip39.model.MnemonicWords
 import org.kethereum.bip39.toSeed
 import org.kethereum.bip39.validate
-import org.kethereum.bip39.wordlists.WORDLIST_ENGLISH
 import org.kethereum.crypto.getCompressedPublicKey
 import org.kethereum.crypto.toAddress
 import org.kethereum.extensions.toHexStringNoPrefix
@@ -29,6 +29,15 @@ import org.walleth.khex.toNoPrefixHexString
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     var seed: Seed? = null
+
+    val words_en = Wordlist.ofEnglish()
+    val words_zhs = Wordlist.ofChineseSimplified()
+    val words_zht = Wordlist.ofChineseTraditional()
+    val words_fr = Wordlist.ofFrench()
+    val words_it = Wordlist.ofItalian()
+    val words_ja = Wordlist.ofJapanese()
+    val words_ko = Wordlist.ofKorean()
+    val words_es = Wordlist.ofSpanish()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +56,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         )
         et_mnemonic._addTextChangedListener {
             _onTextChanged { text, start, before, count ->
-                if (!text.isNullOrBlank() && MnemonicWords(et_mnemonic.text.toString()).validate(WORDLIST_ENGLISH)) {
+                if (!text.isNullOrBlank() && MnemonicWords(et_mnemonic.text.toString()).validateMnemonic()) {
                     seed = MnemonicWords(text.toString()).toSeed()
                     et_seed.setText(seed!!.seed.toNoPrefixHexString())
                 } else {
@@ -57,7 +66,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         et_passphrase._addTextChangedListener {
             _onTextChanged { text, start, before, count ->
-                if (MnemonicWords(et_mnemonic.text.toString()).validate(WORDLIST_ENGLISH)) {
+                if (MnemonicWords(et_mnemonic.text.toString()).validateMnemonic()) {
                     seed = MnemonicWords(et_mnemonic.text.toString()).toSeed(text.toString())
                     et_seed.setText(seed!!.seed.toNoPrefixHexString())
                 } else {
@@ -116,41 +125,52 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val extendedKey =
             seed.toKey(path)
         tv_private_key.text = "private_key:" + extendedKey.keyPair.privateKey.key.toHexStringNoPrefix() + "\n WIF：" +
-                extendedKey.keyPair.privateKey.toBitCoinWIF(MainNetParams.get())
+                extendedKey.keyPair.privateKey.toBitCoinWiF(MainNetParams.get())
         tv_public_key.text = "public_key:" + extendedKey.keyPair.getCompressedPublicKey().toNoPrefixHexString()
         tv_address.text = "address:" + EthereumAddressCreator().fromECKeyPair(extendedKey.keyPair) + " \n base58:" +
                 SegWitBitcoinAddressCreator(MainNetParams.get()).fromECKeyPair(extendedKey.keyPair)
     }
 
+    private fun MnemonicWords.validateMnemonic(): Boolean {
+        val listOf = listOf(words_en, words_es, words_fr, words_it, words_ja, words_ko, words_zhs, words_zht)
+        for (list in listOf) {
+            if (validate(list)) {
+                return true
+            }
+        }
+        return false
+
+    }
 
     override fun onClick(v: View) {
         when (v.id) {
             R.id.tv_mnemonic_en -> {
-                et_mnemonic.setText(generateMnemonic(wordList = WORDLIST_ENGLISH))
+                et_mnemonic.setText(generateMnemonic(wordList = words_en))
 
             }
-/*            R.id.tv_mnemonic_ja -> {
-                et_mnemonic.setText( generateMnemonic(wordList = WORDLIST_JAPANESE))
+            R.id.tv_mnemonic_ja -> {
+                et_mnemonic.setText(generateMnemonic(wordList = words_ja))
             }
             R.id.tv_mnemonic_es -> {
-                et_mnemonic.setText( generateMnemonic(wordList = WORDLIST_SPANISH))
+                et_mnemonic.setText(generateMnemonic(wordList = words_es))
             }
             R.id.tv_mnemonic_Hans -> {
-                et_mnemonic.setText( generateMnemonic(wordList = WORDLIST_CHINESE_SIMPLIFIED))
+                et_mnemonic.setText(generateMnemonic(wordList = words_zhs))
             }
             R.id.tv_mnemonic_Hant -> {
-                et_mnemonic.setText( generateMnemonic(wordList = WORDLIST_CHINESE_TRADITIONAL))
+                et_mnemonic.setText(generateMnemonic(wordList = words_zht))
             }
             R.id.tv_mnemonic_fr -> {
-                et_mnemonic.setText( generateMnemonic(wordList = WORDLIST_FRENCH))
+                et_mnemonic.setText(generateMnemonic(wordList = words_fr))
             }
             R.id.tv_mnemonic_it -> {
-                et_mnemonic.setText( generateMnemonic(wordList = WORDLIST_ITALIAN))
+                et_mnemonic.setText(generateMnemonic(wordList = words_it))
             }
             R.id.tv_mnemonic_ko -> {
-                et_mnemonic.setText( generateMnemonic(wordList = WORDLIST_KOREAN))
-            }*/
+                et_mnemonic.setText(generateMnemonic(wordList = words_ko))
+            }
         }
 
     }
+
 }

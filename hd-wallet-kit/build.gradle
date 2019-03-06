@@ -8,7 +8,6 @@ dependencies {
     def kethereum_version = "0.72.3"
     implementation "com.github.walleth.kethereum:functions:$kethereum_version"
     implementation "com.github.walleth.kethereum:bip39:$kethereum_version"
-    implementation "com.github.walleth.kethereum:bip39_wordlist_en:$kethereum_version"
     implementation "com.github.walleth.kethereum:bip44:$kethereum_version"
     implementation "com.github.walleth.kethereum:crypto_api:$kethereum_version"
     implementation "com.github.walleth.kethereum:crypto_impl_spongycastle:$kethereum_version"

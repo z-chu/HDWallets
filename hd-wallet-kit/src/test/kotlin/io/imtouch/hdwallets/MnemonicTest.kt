@@ -19,7 +19,30 @@ import java.security.SecureRandom
 
 class MnemonicTest {
 
-    private val mnemonic = Mnemonic
+    private val mnemonic = Mnemonic(Wordlist.ofEnglish())
+
+    @Test
+    fun throwsOnWrongEntropySize() {
+        Assert.assertEquals(Wordlist.ofEnglish().size, 2048)
+        Assert.assertEquals(Wordlist.ofSpanish().size, 2048)
+        Assert.assertEquals(Wordlist.ofFrench().size, 2048)
+        Assert.assertEquals(Wordlist.ofItalian().size, 2048)
+        Assert.assertEquals(Wordlist.ofJapanese().size, 2048)
+        Assert.assertEquals(Wordlist.ofKorean().size, 2048)
+        Assert.assertEquals(Wordlist.ofChineseSimplified().size, 2048)
+        Assert.assertEquals(Wordlist.ofChineseTraditional().size, 2048)
+
+
+    }
+
+    private fun print(list: List<String>) {
+        val sorted = list.sorted()
+        for (s in sorted) {
+            System.out.print("\"$s\",")
+        }
+        System.out.println("\n")
+
+    }
 
     @Test
     fun toMnemonic_Success() {
@@ -77,7 +100,7 @@ class MnemonicTest {
         mnemonic.check(mnemonicKeys)
     }
 
-    @Test(expected = Mnemonic.InvalidMnemonicKeyException::class)
+    @Test(expected = IllegalArgumentException::class)
     fun check_InvalidMnemonicKey() {
 
         val mnemonicKeys = listOf(
@@ -144,7 +167,7 @@ class MnemonicTest {
         mnemonic.toSeed(mnemonicKeys)
     }
 
-    @Test(expected = Mnemonic.InvalidMnemonicKeyException::class)
+    @Test(expected = IllegalArgumentException::class)
     fun toSeed_InvalidMnemonicKey() {
 
         val mnemonicKeys = listOf(

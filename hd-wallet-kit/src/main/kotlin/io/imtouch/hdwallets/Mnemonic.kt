@@ -1,13 +1,9 @@
 package io.imtouch.hdwallets
 
-import org.kethereum.bip39.entropyToMnemonic
-import org.kethereum.bip39.generateMnemonic
+import org.kethereum.bip39.*
 import org.kethereum.bip39.model.MnemonicWords
-import org.kethereum.bip39.toSeed
-import org.kethereum.bip39.validate
-import org.kethereum.bip39.wordlists.WORDLIST_ENGLISH
 
-object Mnemonic {
+class Mnemonic(private val wordList: List<String>) {
 
     enum class Strength(val value: Int) {
         Default(128),
@@ -29,14 +25,14 @@ object Mnemonic {
         return generatePhrase(strength).split(" ")
     }
 
-    fun generatePhrase(strength: Strength = Strength.Default) = generateMnemonic(strength.value, WORDLIST_ENGLISH)
+    fun generatePhrase(strength: Strength = Strength.Default) = generateMnemonic(strength.value, wordList)
 
     /**
      * Convert entropy data to mnemonic word list.
      */
     fun toMnemonic(entropy: ByteArray): List<String> {
         if (entropy.isEmpty()) throw EmptyEntropyException("Entropy is empty.")
-        return entropyToMnemonic(entropy, WORDLIST_ENGLISH).split(" ")
+        return entropyToMnemonic(entropy, wordList).split(" ")
     }
 
     /**
@@ -52,7 +48,7 @@ object Mnemonic {
      * Validate mnemonic keys
      */
     fun validate(mnemonicKeys: List<String>): Boolean {
-        return MnemonicWords(mnemonicKeys).validate(WORDLIST_ENGLISH)
+        return MnemonicWords(mnemonicKeys).validate(wordList)
     }
 
 
@@ -64,11 +60,9 @@ object Mnemonic {
             throw InvalidMnemonicCountException("Count: ${mnemonicKeys.size}")
         }
 
-        val wordsList = WORDLIST_ENGLISH
+        val wordsList = wordList
         val mnemonicWords = MnemonicWords(mnemonicKeys)
-        if (!mnemonicWords.validate(wordsList)) {
-            throw InvalidMnemonicKeyException("Invalid word: $mnemonicKeys")
-        }
+        mnemonicWords.mnemonicToEntropy(wordsList)
         return mnemonicWords
     }
 
@@ -78,6 +72,6 @@ object Mnemonic {
 
     class InvalidMnemonicCountException(message: String) : MnemonicException(message)
 
-    class InvalidMnemonicKeyException(message: String) : MnemonicException(message)
+
 
 }

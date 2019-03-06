@@ -1,1 +1,1 @@
-include ':app', ':hd-wallet-kit', ':kbitcoin'
+include ':app', ':hd-wallet-kit'
