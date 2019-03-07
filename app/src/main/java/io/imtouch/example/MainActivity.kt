@@ -8,7 +8,7 @@ import com.github.zchu.bridge._addTextChangedListener
 import com.github.zchu.common.help.showToastShort
 import com.github.zchu.common.util.DebounceOnClickLister
 import com.github.zchu.common.util.bindOnClickLister
-import io.imtouch.hdwallets.Wordlist
+
 import io.imtouch.hdwallets.address.EthereumAddressCreator
 import io.imtouch.hdwallets.address.SegWitBitcoinAddressCreator
 import io.imtouch.hdwallets.toBitCoinWiF
@@ -19,8 +19,9 @@ import org.kethereum.bip32.toExtendedKey
 import org.kethereum.bip32.toKey
 import org.kethereum.bip39.generateMnemonic
 import org.kethereum.bip39.model.MnemonicWords
-import org.kethereum.bip39.toSeed
+import org.kethereum.bip39.seed.toSeed
 import org.kethereum.bip39.validate
+import org.kethereum.bip39.wordlists.*
 import org.kethereum.crypto.getCompressedPublicKey
 import org.kethereum.crypto.toAddress
 import org.kethereum.extensions.toHexStringNoPrefix
@@ -30,14 +31,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     var seed: Seed? = null
 
-    val words_en = Wordlist.ofEnglish()
-    val words_zhs = Wordlist.ofChineseSimplified()
-    val words_zht = Wordlist.ofChineseTraditional()
-    val words_fr = Wordlist.ofFrench()
-    val words_it = Wordlist.ofItalian()
-    val words_ja = Wordlist.ofJapanese()
-    val words_ko = Wordlist.ofKorean()
-    val words_es = Wordlist.ofSpanish()
+    val words_en = wordListOfEnglish()
+    val words_zhs =  wordListOfChineseSimplified()
+    val words_zht = wordListOfChineseTraditional()
+    val words_fr = wordListOfFrench()
+    val words_it = wordListOfItalian()
+    val words_ja = wordListOfJapanese()
+    val words_ko = wordListOfKorean()
+    val words_es = wordListOfSpanish()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -51,9 +51,11 @@ dependencies {
     implementation 'com.google.guava:guava:27.0.1-android'
 
 
-    def kethereum_version = "0.72.3"
-    implementation "com.github.walleth.kethereum:bip39:$kethereum_version"
-    implementation "com.github.walleth.kethereum:crypto_impl_spongycastle:$kethereum_version"
+    def kethereum_version = "0.74.0"
+    implementation "com.github.z-chu.kethereum:bip39:$kethereum_version"
+    implementation "com.github.z-chu.kethereum:bip39_seed:$kethereum_version"
+    implementation "com.github.z-chu.kethereum:bip39_wordlists:$kethereum_version"
+    implementation "com.github.z-chu.kethereum:crypto_impl_spongycastle:$kethereum_version"
 
 /*    implementation "com.github.walleth.kethereum:functions:$kethereum_version"
     implementation "com.github.walleth.kethereum:bip44:$kethereum_version"
@@ -72,6 +74,9 @@ dependencies {
     implementation "com.github.walleth.kethereum:contract_abi_types:$kethereum_version"
 
     implementation "com.github.walleth.kethereum:crypto_impl_bouncycastle:$kethereum_version"*/
-    implementation project(':hd-wallet-kit')
+    implementation project(':hd_wallet')
+   // implementation project(':bip39')
+
+
 
 }

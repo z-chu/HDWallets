@@ -5,7 +5,7 @@ import org.kethereum.bip32.model.ExtendedKey
 import org.kethereum.bip32.model.Seed
 import org.kethereum.bip32.toExtendedKey
 import org.kethereum.bip39.model.MnemonicWords
-import org.kethereum.bip39.toSeed
+import org.kethereum.bip39.seed.toSeed
 import org.kethereum.bip44.BIP44
 
 class HDWallet(val rootKey: ExtendedKey, val coinType: Int, val gapLimit: Int = 20) {

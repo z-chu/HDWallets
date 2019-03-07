@@ -2,10 +2,11 @@ package io.imtouch.hdwallets
 
 import org.kethereum.bip39.*
 import org.kethereum.bip39.model.MnemonicWords
+import org.kethereum.bip39.seed.toSeed
 
 class Mnemonic(private val wordList: List<String>) {
 
-    enum class Strength(val value: Int) {
+    enum  class Strength(val value: Int) {
         Default(128),
         Low(160),
         Medium(192),

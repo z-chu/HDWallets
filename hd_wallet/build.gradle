@@ -5,12 +5,12 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 
-    def kethereum_version = "0.72.3"
-    implementation "com.github.walleth.kethereum:functions:$kethereum_version"
-    implementation "com.github.walleth.kethereum:bip39:$kethereum_version"
-    implementation "com.github.walleth.kethereum:bip44:$kethereum_version"
-    implementation "com.github.walleth.kethereum:crypto_api:$kethereum_version"
-    implementation "com.github.walleth.kethereum:crypto_impl_spongycastle:$kethereum_version"
+    def kethereum_version = "0.74.0"
+    implementation "com.github.z-chu.kethereum:bip39_seed:$kethereum_version"
+    implementation "com.github.z-chu.kethereum:functions:$kethereum_version"
+    implementation "com.github.z-chu.kethereum:bip44:$kethereum_version"
+    implementation "com.github.z-chu.kethereum:crypto_api:$kethereum_version"
+    implementation "com.github.z-chu.kethereum:crypto_impl_spongycastle:$kethereum_version"
 
     //bitcoin
     implementation('org.bitcoinj:bitcoinj-core:0.14.7') {
@@ -25,6 +25,8 @@ dependencies {
     testImplementation 'com.nhaarman:mockito-kotlin-kt1.1:1.6.0'
     testImplementation 'org.powermock:powermock-api-mockito2:2.0.0-beta.5'
     testImplementation 'org.powermock:powermock-module-junit4:2.0.0-beta.5'
+
+    //implementation project(':bip39_wordlists')
 }
 
 sourceCompatibility = "7"
