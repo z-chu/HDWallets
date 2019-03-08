@@ -3,12 +3,11 @@ package io.imtouch.hdwallets
 import io.imtouch.hdwallets.transaction.EthereumTransaction
 import org.junit.Assert
 import org.junit.Test
-import org.kethereum.bip32.model.Seed
 import org.kethereum.bip39.model.MnemonicWords
-import org.kethereum.crypto.signMessage
 import org.kethereum.crypto.toAddress
 import org.kethereum.extensions.hexToBigInteger
-import org.kethereum.functions.*
+import org.kethereum.functions.encodeRLP
+import org.kethereum.functions.isTokenTransfer
 
 class EthereumTransactionTest {
     private val hdWalletMainNet = HDWallet(MnemonicWords("suspect napkin chief drill immense tackle hedgehog repair puzzle delay genre soap drastic hockey verb"), 60)

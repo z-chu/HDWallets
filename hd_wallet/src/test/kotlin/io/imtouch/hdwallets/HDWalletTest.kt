@@ -1,6 +1,5 @@
 package io.imtouch.hdwallets
 
-import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.kethereum.bip32.model.Seed

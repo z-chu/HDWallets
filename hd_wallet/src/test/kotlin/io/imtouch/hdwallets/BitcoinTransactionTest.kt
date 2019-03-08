@@ -2,7 +2,6 @@ package io.imtouch.hdwallets
 
 import io.imtouch.hdwallets.address.BitcoinAddressCreator
 import io.imtouch.hdwallets.transaction.BitcoinTransaction
-import io.imtouch.hdwallets.transaction.EthereumTransaction
 import org.bitcoinj.core.Address
 import org.bitcoinj.core.AddressFormatException
 import org.bitcoinj.params.MainNetParams
@@ -10,10 +9,6 @@ import org.bitcoinj.params.TestNet3Params
 import org.junit.Assert
 import org.junit.Test
 import org.kethereum.bip39.model.MnemonicWords
-import org.kethereum.crypto.toAddress
-import org.kethereum.extensions.hexToBigInteger
-import org.kethereum.functions.encodeRLP
-import org.kethereum.functions.isTokenTransfer
 
 class BitcoinTransactionTest {
     private val hdWalletMainNet = HDWallet(

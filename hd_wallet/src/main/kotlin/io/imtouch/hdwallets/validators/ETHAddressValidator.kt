@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions.checkState
 import com.google.common.base.Strings
 import org.kethereum.keccakshortcut.keccak
 import org.walleth.khex.clean0xPrefix
-import org.walleth.khex.toHexString
 import org.walleth.khex.toNoPrefixHexString
 import java.util.regex.Pattern
 

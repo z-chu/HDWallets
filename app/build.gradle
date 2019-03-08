@@ -43,8 +43,8 @@ dependencies {
 
     implementation 'com.nex3z:flow-layout:1.2.4'
 
-    implementation 'com.github.z-chu.android-common-kit:common:0.1.1'
-    implementation 'com.github.z-chu.android-common-kit:kotlin-bridge:0.1.1'
+    implementation 'com.github.z-chu.android-common-kit:common:0.1.2'
+    implementation 'com.github.z-chu.android-common-kit:kotlin-bridge:0.1.2'
     implementation('org.bitcoinj:bitcoinj-core:0.14.7') {
         exclude group: 'com.google.protobuf'
     }

@@ -10,7 +10,6 @@ import org.kethereum.hashes.sha256
 import org.kethereum.model.ECKeyPair
 import org.walleth.khex.hexToByteArray
 import org.walleth.khex.toHexString
-import org.walleth.khex.toNoPrefixHexString
 
 class SegWitBitcoinAddressCreator(private val networkParameters: NetworkParameters) {
 

@@ -9,7 +9,6 @@ import org.kethereum.hashes.sha256
 import org.kethereum.model.ECKeyPair
 import org.kethereum.model.PrivateKey
 import org.kethereum.model.PublicKey
-import java.math.BigInteger
 
 @Suppress("MemberVisibilityCanBePrivate", "unused")
 class BitcoinAddressCreator(private val networkParameters: NetworkParameters) {
