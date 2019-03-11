@@ -17,15 +17,15 @@ class BitcoinTransaction(private val networkParams: NetworkParameters) {
 
 
     fun signTransaction(ecKeyPair: ECKeyPair, transactionHex: String): SignedTransaction {
-        val transaction = decodeTransactionHex(transactionHex)
+        return signTransaction(ECKey.fromPrivate(ecKeyPair.privateKey.key), transactionHex)
+    }
 
+
+    fun signTransaction(ecKey: ECKey, transactionHex: String): SignedTransaction {
+        val transaction = decodeTransactionHex(transactionHex)
         for (i in transaction.inputs.indices) {
             val input = transaction.getInput(i.toLong())
-
-            val ecKey = ECKey.fromPrivate(ecKeyPair.privateKey.key)
-
             val scriptPubKey = ScriptBuilder.createOutputScript(ecKey.toAddress(networkParams))
-
             val hash = transaction.hashForSignature(i, scriptPubKey, Transaction.SigHash.ALL, false)
             val ecSig = ecKey.sign(hash)
             val txSig = TransactionSignature(ecSig, Transaction.SigHash.ALL, false)
@@ -39,9 +39,7 @@ class BitcoinTransaction(private val networkParams: NetworkParameters) {
             }
         }
         return SignedTransaction(transaction, transaction.bitcoinSerialize())
-
     }
-
     class SignedTransaction(val transaction: Transaction, val signedTx: ByteArray)
 
 }
