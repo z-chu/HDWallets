@@ -18,7 +18,6 @@ class ETHAddressValidatorTest {
         )
         for (address in invalidAddresses) {
             Assert.assertEquals(ETHAddressValidator.isValidAddress(address), false)
-
         }
 
         val validAddresses = arrayOf(
@@ -32,7 +31,9 @@ class ETHAddressValidatorTest {
             "c49fC8486E44C83fC60013391E1f3E341c2DAB2b",
             "0BC719Ad03d6A0Aae88430B1cfa09F61c84E92f1",
             "fE59be66AfC08cF6E641a5160eF0d9122A16713A",
-            "8A7c22e2654B90D1cDa40E7492cBADe97A9adA43"
+            "8A7c22e2654B90D1cDa40E7492cBADe97A9adA43",
+            "0xac342eD914CBBd4705F2939e4645B9C12Be0Bf1f",
+            "0xb52b0061b47671bf2fd8972cfc0335b043a1c22c"
         )
 
         for (address in validAddresses) {

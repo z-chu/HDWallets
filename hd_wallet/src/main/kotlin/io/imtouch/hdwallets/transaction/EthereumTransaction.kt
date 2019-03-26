@@ -5,10 +5,12 @@ import org.kethereum.functions.encodeRLP
 import org.kethereum.functions.rlp.RLPList
 import org.kethereum.functions.rlp.decodeRLP
 import org.kethereum.functions.toTransaction
+import org.kethereum.model.Address
 import org.kethereum.model.ECKeyPair
 import org.kethereum.model.SignedTransaction
 import org.kethereum.model.Transaction
 import org.walleth.khex.hexToByteArray
+import java.math.BigInteger
 
 class EthereumTransaction {
 

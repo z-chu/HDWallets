@@ -6,6 +6,7 @@ import org.junit.Test
 import org.kethereum.bip39.model.MnemonicWords
 import org.kethereum.crypto.toAddress
 import org.kethereum.extensions.hexToBigInteger
+import org.kethereum.extensions.toBigInteger
 import org.kethereum.functions.encodeRLP
 import org.kethereum.functions.isTokenTransfer
 
@@ -40,7 +41,5 @@ class EthereumTransactionTest {
 
         val tokenTransfer = signedTransaction.transaction.isTokenTransfer()
         Assert.assertEquals(tokenTransfer, true)
-
-
     }
 }

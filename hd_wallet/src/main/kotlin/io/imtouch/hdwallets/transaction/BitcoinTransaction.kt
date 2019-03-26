@@ -40,6 +40,8 @@ class BitcoinTransaction(private val networkParams: NetworkParameters) {
         }
         return SignedTransaction(transaction, transaction.bitcoinSerialize())
     }
+
     class SignedTransaction(val transaction: Transaction, val signedTx: ByteArray)
 
 }
+
