@@ -1,12 +1,12 @@
 package io.imtouch.hdwallets.address
 
+import org.kethereum.bip32.model.XPriv
 import org.kethereum.crypto.publicKeyFromPrivate
 import org.kethereum.crypto.toAddress
 import org.kethereum.model.ECKeyPair
 import org.kethereum.model.PrivateKey
 import org.kethereum.model.PublicKey
 
-@Suppress("MemberVisibilityCanBePrivate", "unused")
 class EthereumAddressCreator {
 
 
@@ -22,4 +22,5 @@ class EthereumAddressCreator {
     fun fromECKeyPair(key: ECKeyPair): String {
         return fromPublicKey(key.publicKey)
     }
+
 }

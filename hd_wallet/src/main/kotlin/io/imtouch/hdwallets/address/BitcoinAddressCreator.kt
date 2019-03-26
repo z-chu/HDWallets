@@ -10,7 +10,6 @@ import org.kethereum.model.ECKeyPair
 import org.kethereum.model.PrivateKey
 import org.kethereum.model.PublicKey
 
-@Suppress("MemberVisibilityCanBePrivate", "unused")
 class BitcoinAddressCreator(private val networkParameters: NetworkParameters) {
 
     fun fromPublicKey(publicKey: PublicKey): String {
