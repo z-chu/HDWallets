@@ -1,5 +1,7 @@
 package io.imtouch.hdwallets.address
 
+import io.imtouch.hdwallets.toECKeyPair
+import org.bitcoinj.core.ECKey
 import org.kethereum.bip32.model.XPriv
 import org.kethereum.crypto.publicKeyFromPrivate
 import org.kethereum.crypto.toAddress
@@ -21,6 +23,10 @@ class EthereumAddressCreator {
 
     fun fromECKeyPair(key: ECKeyPair): String {
         return fromPublicKey(key.publicKey)
+    }
+
+    fun fromECKey(key: ECKey): String {
+        return fromECKeyPair(key.toECKeyPair())
     }
 
 }

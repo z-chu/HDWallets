@@ -2,6 +2,7 @@ package io.imtouch.hdwallets.address
 
 import io.imtouch.hdwallets.compress
 import org.bitcoinj.core.Address
+import org.bitcoinj.core.ECKey
 import org.bitcoinj.core.NetworkParameters
 import org.kethereum.crypto.publicKeyFromPrivate
 import org.kethereum.hashes.ripemd160
@@ -22,5 +23,9 @@ class BitcoinAddressCreator(private val networkParameters: NetworkParameters) {
 
     fun fromECKeyPair(key: ECKeyPair): String {
         return fromPublicKey(key.publicKey)
+    }
+
+    fun fromECKey(key: ECKey): String {
+        return key.toAddress(networkParameters).toBase58()
     }
 }
